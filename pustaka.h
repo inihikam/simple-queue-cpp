@@ -37,76 +37,124 @@ void bersihlayar()
     }
 }
 
-bool checkFull(){
-    if (dataNo > maks){
+bool checkFull()
+{
+    if (dataNo > maks)
+    {
         return true;
-    } else {
-        return false;
-    } 
-}
-
-bool checkEmpty(){
-    if (dataNo <= 1){
-        return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
-    
 }
 
-void inqueue(){
-
-    if (dataNo > maks){
-        gotoxy(40,14);
-        cout << "Antrean Penuh";
-        gotoxy(40,15);
-        cout << "Press Any Key ...";
-        getch();
-    } else {
-        // Menginputkan Data Pasien
-        gotoxy(20, 15);
-        cout << "Masukkan nama pasien: ";
-        cin >> pasien[dataNo].nama;
-        gotoxy(20, 16);
-        cout << "Masukkan jenis kelamin pasien: ";
-        cin >> pasien[dataNo].sex;
-        gotoxy(20, 17);
-        cout << "Masukkan Umur pasien: ";
-        cin >> pasien[dataNo].umur;
-
-        cout << "\n";
-
-        dataNo++;
+bool checkEmpty()
+{
+    if (dataNo <= 1)
+    {
+        return true;
     }
-    
-
+    else
+    {
+        return false;
+    }
 }
 
-void dequeue(){
+void inqueue()
+{
 
-    if (dataNo <= 1){
+    // Menginputkan Data Pasien
+    gotoxy(20, 15);
+    cout << "Masukkan nama pasien: ";
+    cin >> pasien[dataNo].nama;
+    gotoxy(20, 16);
+    cout << "Masukkan jenis kelamin pasien: ";
+    cin >> pasien[dataNo].sex;
+    gotoxy(20, 17);
+    cout << "Masukkan Umur pasien: ";
+    cin >> pasien[dataNo].umur;
+
+    cout << "\n";
+
+    dataNo++;
+}
+
+void dequeue()
+{
+
+    // Menampilkan Data yang akan di hapus
+    gotoxy(40, 12);
+    cout << "Pasien yang akan masuk adalah :" << endl;
+    gotoxy(40, 13);
+    cout << pasien[1].nama << " ";
+    cout << pasien[1].sex << " ";
+    cout << pasien[1].umur << "\n\n";
+
+    // Memindahkan data maju saat sudah ada dequeue
+    for (int i = 2; i < dataNo; i++)
+    {
+        pasien[i - 1] = pasien[i];
+    }
+
+    dataNo--;
+
+    gotoxy(40, 15);
+    cout << "Press Any Key ...";
+    getch();
+}
+
+void specialInqueue(int x)
+{
+
+    // Menginputkan Data Pasien
+    dataNo++;
+
+    for (int i = dataNo; i > x; i--)
+    {
+        pasien[i] = pasien[i - 1];
+    }
+
+    gotoxy(20, 15);
+    cout << "Masukkan nama pasien: ";
+    cin >> pasien[x].nama;
+    gotoxy(20, 16);
+    cout << "Masukkan jenis kelamin pasien: ";
+    cin >> pasien[x].sex;
+    gotoxy(20, 17);
+    cout << "Masukkan Umur pasien: ";
+    cin >> pasien[x].umur;
+
+    cout << "\n";
+}
+
+void specialDequeue(int x)
+{
+
+    if (x > dataNo-1){
         gotoxy(40,14);
-        cout << "Antrean sudah habis";
+        cout << "Antrean Tidak Ditemukan";
         gotoxy(40,15);
         cout << "Press Any Key ...";
         getch();
     } else {
         // Menampilkan Data yang akan di hapus
         gotoxy(40, 12);
-        cout << "Pasien yang akan masuk adalah :" << endl;
+        cout << "Pasien yang akan masuk duluan adalah :" << endl;
         gotoxy(40, 13);
-        cout << pasien[1].nama << " ";
-        cout << pasien[1].sex << " ";
-        cout << pasien[1].umur << "\n\n";
+        cout << pasien[x].nama << " ";
+        cout << pasien[x].sex << " ";
+        cout << pasien[x].umur << "\n\n";
 
         // Memindahkan data maju saat sudah ada dequeue
-        for (int i = 2; i < dataNo; i++){
-            pasien[i-1] = pasien[i]; 
+        for (int i = x; i < dataNo; i++)
+        {
+            pasien[i] = pasien[i + 1];
         }
-        
+
         dataNo--;
 
-        gotoxy(40,15);
+        gotoxy(40, 15);
         cout << "Press Any Key ...";
         getch();
     }
@@ -114,66 +162,14 @@ void dequeue(){
 
 }
 
-void specialInqueue(int x){
-
-    if (dataNo > maks){
-        gotoxy(40,14);
-        cout << "Antrean Penuh";
-        gotoxy(40,15);
-        cout << "Press Any Key ...";
-        getch();
-    } else {
-        // Menginputkan Data Pasien
-        dataNo++;
-
-        for (int i = dataNo; i > x; i--){
-            pasien[i] = pasien[i-1];
-        }
-
-        gotoxy(20, 15);
-        cout << "Masukkan nama pasien: ";
-        cin >> pasien[x].nama;
-        gotoxy(20, 16);
-        cout << "Masukkan jenis kelamin pasien: ";
-        cin >> pasien[x].sex;
-        gotoxy(20, 17);
-        cout << "Masukkan Umur pasien: ";
-        cin >> pasien[x].umur;
-
-        cout << "\n";
-    }
-    
-}
-
-void specialDequeue(int x){
-
-    // Menampilkan Data yang akan di hapus
-    gotoxy(40, 12);
-    cout << "Pasien yang akan masuk duluan adalah :" << endl;
-    gotoxy(40, 13);
-    cout << pasien[x].nama << " ";
-    cout << pasien[x].sex << " ";
-    cout << pasien[x].umur << "\n\n";
-
-    // Memindahkan data maju saat sudah ada dequeue
-    for (int i = x; i < dataNo; i++){
-        pasien[i] = pasien[i+1]; 
-    }
-    
-    dataNo--;
-
-    gotoxy(40,15);
-    cout << "Press Any Key ...";
-    getch();
-
-}
-
-void showData(){
+void showData()
+{
 
     // Menampilkan data
-    gotoxy(40,10);
+    gotoxy(40, 10);
     cout << "Daftar Pasien\n";
-    for (int i = 1; i < dataNo; i++){
+    for (int i = 1; i < dataNo; i++)
+    {
         gotoxy(40, 11 + i);
         cout << i << ". " << pasien[i].nama;
         cout << " " << pasien[i].sex;
@@ -181,8 +177,7 @@ void showData(){
         cout << "\n";
     }
 
-    gotoxy(40,30);
+    gotoxy(40, 30);
     cout << "Press Any Key ...";
     getch();
-    
 }

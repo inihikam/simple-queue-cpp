@@ -76,7 +76,15 @@ int main(){
             }
         }
         if (select == 5){
-            showData();
+            if (checkEmpty() == true){
+                gotoxy(40,14);
+                cout << "Antrean Kosong";
+                gotoxy(40,15);
+                cout << "Press Any Key ...";
+                getch();
+            } else {
+                showData();
+            }
         }
     } while (select != 9);
     
