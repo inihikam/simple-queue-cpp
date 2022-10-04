@@ -107,31 +107,40 @@ void dequeue()
 void specialInqueue(int x)
 {
 
-    // Menginputkan Data Pasien
-    dataNo++;
+    if (x > dataNo || x < 1){
+        gotoxy(40,14);
+        cout << "Harap mengisi antrean selanjutnya terlebih dahulu";
+        gotoxy(40,15);
+        cout << "Press Any Key ...";
+        getch();
+    } else {
+        // Menginputkan Data Pasien
+        dataNo++;
 
-    for (int i = dataNo; i > x; i--)
-    {
-        pasien[i] = pasien[i - 1];
+        for (int i = dataNo; i > x; i--)
+        {
+            pasien[i] = pasien[i - 1];
+        }
+
+        gotoxy(20, 15);
+        cout << "Masukkan nama pasien: ";
+        cin >> pasien[x].nama;
+        gotoxy(20, 16);
+        cout << "Masukkan jenis kelamin pasien: ";
+        cin >> pasien[x].sex;
+        gotoxy(20, 17);
+        cout << "Masukkan Umur pasien: ";
+        cin >> pasien[x].umur;
+
+        cout << "\n";
     }
 
-    gotoxy(20, 15);
-    cout << "Masukkan nama pasien: ";
-    cin >> pasien[x].nama;
-    gotoxy(20, 16);
-    cout << "Masukkan jenis kelamin pasien: ";
-    cin >> pasien[x].sex;
-    gotoxy(20, 17);
-    cout << "Masukkan Umur pasien: ";
-    cin >> pasien[x].umur;
-
-    cout << "\n";
 }
 
 void specialDequeue(int x)
 {
 
-    if (x > dataNo-1){
+    if (x > dataNo-1 || x < 1){
         gotoxy(40,14);
         cout << "Antrean Tidak Ditemukan";
         gotoxy(40,15);
